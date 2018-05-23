@@ -13,7 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.DataProvider;
 
-public class UITestBase{=
+public class UITestBase{
 	private static final String DATA_CONFIG_FILE="/home/ubuntu/testscripts/scripts/automation_testscripts/MavenUITest/src/test/java/com/opsmx/test/datadriven.properties";
 	private static final String GECKO_CONFIG_FILE="/home/ubuntu/testscripts/scripts/automation_testscripts/MavenUITest/geckodriver";
 	private static final String BID_CONFIG_FILE="/home/ubuntu/testscripts/scripts/automation_testscripts/MavenUITest/src/test/java/com/opsmx/test/id.txt"
