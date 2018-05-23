@@ -13,21 +13,28 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.DataProvider;
 
-public class UITestBase{
+public class UITestBase{=
+	private static final String DATA_CONFIG_FILE="/home/ubuntu/testscripts/scripts/automation_testscripts/MavenUITest/src/test/java/com/opsmx/test/datadriven.properties";
+	private static final String GECKO_CONFIG_FILE="/home/ubuntu/testscripts/scripts/automation_testscripts/MavenUITest/geckodriver";
+	private static final String BID_CONFIG_FILE="/home/ubuntu/testscripts/scripts/automation_testscripts/MavenUITest/src/test/java/com/opsmx/test/id.txt"
+			
 	public WebDriver driver=null;
-	
+	public FileInputStream file;
 	public void UIUrl() throws IOException
 	{
 		Properties prop=new Properties();
-		FileInputStream file=new FileInputStream("/home/ubuntu/testscripts/scripts/automation_testscripts/MavenUITest/src/test/java/com/opsmx/test/datadriven.properties");
-		
+		try {
+		 file=new FileInputStream(DATA_CONFIG_FILE);
+		} catch (FileNotFoundException ex) {
+   		System.out.println("File not found !");
+		}
 		prop.load(file);
 		
 		// Creating Driver object for firefox browser
 		// This line tells your test where to find the firefox driver, which is the "glue"
 	    // between Selenium and the firefox installation on your machine
 		
-	    System.setProperty("webdriver.gecko.driver", "/home/ubuntu/testscripts/scripts/automation_testscripts/MavenUITest/geckodriver"); 	
+	    System.setProperty("webdriver.gecko.driver", GECKO_CONFIG_FILE); 	
 		// Start a new firefox browser instance and maximize the browser window
 		driver=new FirefoxDriver();
 	    driver.manage().window().maximize();
@@ -39,8 +46,11 @@ public class UITestBase{
 	public void UILogin() throws IOException
 	{
 		Properties prop=new Properties();
-		FileInputStream file=new FileInputStream("/home/ubuntu/testscripts/scripts/automation_testscripts/MavenUITest/src/test/java/com/opsmx/test/datadriven.properties");
-		
+		try {
+	         file=new FileInputStream(DATA_CONFIG_FILE);
+		} catch (FileNotFoundException ex) {
+   		System.out.println("File not found !");
+		}
 		prop.load(file);
 		//login into OpsMx
 		driver.findElement(By.id("emailid")).sendKeys(prop.getProperty("Emailid"));
@@ -54,9 +64,13 @@ public class UITestBase{
 	@DataProvider(name="newdata")
 	public static Object[] dp() throws IOException
 	{
+		try {
 		//Providing list of Canary Id's from the "id.txt" file to run the test cases for
-		FileReader file = new FileReader("/home/ubuntu/testscripts/scripts/automation_testscripts/MavenUITest/src/test/java/com/opsmx/test/id.txt");
-		BufferedReader reader = new BufferedReader(file);
+		FileReader fr = new FileReader(BID_CONFIG_FILE);
+		} catch (FileNotFoundException ex) {
+   		System.out.println("File not found !");
+		}
+		BufferedReader reader = new BufferedReader(fr);
 		
 		List<String> ids = new ArrayList<String>();
 		String line = null;
