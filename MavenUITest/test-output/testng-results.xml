@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="2" passed="2">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="51814" started-at="2018-05-17T17:21:31Z" finished-at="2018-05-17T17:22:23Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="51814" started-at="2018-05-17T17:21:31Z" finished-at="2018-05-17T17:22:23Z">
+      <class name="com.opsmx.test.UITest">
+        <test-method status="PASS" signature="UIConn()[pri:0, instance:com.opsmx.test.UITest@91161c7]" name="UIConn" is-config="true" duration-ms="6297" started-at="2018-05-17T17:21:31Z" finished-at="2018-05-17T17:21:37Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- UIConn -->
+        <test-method status="PASS" signature="UITesting(java.lang.String)[pri:0, instance:com.opsmx.test.UITest@91161c7]" name="UITesting" duration-ms="23563" started-at="2018-05-17T17:21:37Z" data-provider="newdata" finished-at="2018-05-17T17:22:01Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[29]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- UITesting -->
+        <test-method status="PASS" signature="UITesting(java.lang.String)[pri:0, instance:com.opsmx.test.UITest@91161c7]" name="UITesting" duration-ms="21664" started-at="2018-05-17T17:22:01Z" data-provider="newdata" finished-at="2018-05-17T17:22:23Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[30]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- UITesting -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.opsmx.test.UITest@91161c7]" name="tearDown" is-config="true" duration-ms="252" started-at="2018-05-17T17:22:23Z" finished-at="2018-05-17T17:22:23Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.opsmx.test.UITest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
