@@ -18,6 +18,7 @@ import org.testng.annotations.DataProvider;
 
 
 public class UITestBase{
+<<<<<<< HEAD
 	private static final String DATA_CONFIG_FILE="datadriven.properties";
 	private static final String GECKO_CONFIG_FILE="geckodriver";
 	private static final String BID_CONFIG_FILE="id.txt";
@@ -37,6 +38,24 @@ public class UITestBase{
 		} else {
 			throw new FileNotFoundException("property file '" + DATA_CONFIG_FILE + "' not found in the classpath");
 		}	
+=======
+	private static final String DATA_CONFIG_FILE="/home/ubuntu/testscripts/scripts/automation_testscripts/MavenUITest/src/test/java/com/opsmx/test/datadriven.properties";
+	private static final String GECKO_CONFIG_FILE="/home/ubuntu/testscripts/scripts/automation_testscripts/MavenUITest/geckodriver";
+	private static final String BID_CONFIG_FILE="/home/ubuntu/testscripts/scripts/automation_testscripts/MavenUITest/src/test/java/com/opsmx/test/id.txt"
+			
+	public WebDriver driver=null;
+	public FileInputStream file;
+	public void UIUrl() throws IOException
+	{
+		Properties prop=new Properties();
+		try {
+		 file=new FileInputStream(DATA_CONFIG_FILE);
+		} catch (FileNotFoundException ex) {
+   		System.out.println("File not found !");
+		}
+		prop.load(file);
+		
+>>>>>>> 73e636445dd348c074aa1d43a42cc1aff307b629
 		// Creating Driver object for firefox browser
 		// This line tells your test where to find the firefox driver, which is the "glue"
 	    // between Selenium and the firefox installation on your machine
@@ -57,6 +76,7 @@ public class UITestBase{
 	
 	public void UILogin() throws IOException
 	{
+<<<<<<< HEAD
 		
 	 try{
 		  prop=new Properties();
@@ -66,6 +86,15 @@ public class UITestBase{
 			} else {
 				throw new FileNotFoundException("property file '" + DATA_CONFIG_FILE + "' not found!");
 			}	
+=======
+		Properties prop=new Properties();
+		try {
+	         file=new FileInputStream(DATA_CONFIG_FILE);
+		} catch (FileNotFoundException ex) {
+   		System.out.println("File not found !");
+		}
+		prop.load(file);
+>>>>>>> 73e636445dd348c074aa1d43a42cc1aff307b629
 		//login into OpsMx
 		driver.findElement(By.id("emailid")).sendKeys(prop.getProperty("Emailid"));
 		driver.findElement(By.id("pass")).sendKeys(prop.getProperty("Password"));
@@ -83,6 +112,7 @@ public class UITestBase{
 	@DataProvider(name="newdata")
 	public static Object[] dp() throws IOException
 	{
+<<<<<<< HEAD
 		BufferedReader reader;
 		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
 		InputStream is = classloader.getResourceAsStream(BID_CONFIG_FILE);
@@ -92,6 +122,16 @@ public class UITestBase{
 		} else {
 			throw new FileNotFoundException("property file '" + BID_CONFIG_FILE + "' not found!");
 		}	
+=======
+		try {
+		//Providing list of Canary Id's from the "id.txt" file to run the test cases for
+		FileReader fr = new FileReader(BID_CONFIG_FILE);
+		} catch (FileNotFoundException ex) {
+   		System.out.println("File not found !");
+		}
+		BufferedReader reader = new BufferedReader(fr);
+		
+>>>>>>> 73e636445dd348c074aa1d43a42cc1aff307b629
 		List<String> ids = new ArrayList<String>();
 		String line = null;
 		while ((line = reader.readLine()) != null) 
