@@ -1,68 +1,102 @@
 package com.opsmx.test;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.DataProvider;
 
+
 public class UITestBase{
+	private static final String DATA_CONFIG_FILE="datadriven.properties";
+	private static final String GECKO_CONFIG_FILE="geckodriver";
+	private static final String BID_CONFIG_FILE="id.txt";
+			
 	public WebDriver driver=null;
+	static InputStream inputStream;
 	
+	public Properties prop;
 	public void UIUrl() throws IOException
 	{
-		Properties prop=new Properties();
-		FileInputStream file=new FileInputStream("/home/ubuntu/testscripts/scripts/automation_testscripts/MavenUITest/src/test/java/com/opsmx/test/datadriven.properties");
-		
-		prop.load(file);
-		
+	 try{
+	  
+	  prop=new Properties();
+	  inputStream=getClass().getClassLoader().getResourceAsStream(DATA_CONFIG_FILE);
+		if (inputStream != null) {
+			prop.load(inputStream);
+		} else {
+			throw new FileNotFoundException("property file '" + DATA_CONFIG_FILE + "' not found in the classpath");
+		}	
 		// Creating Driver object for firefox browser
 		// This line tells your test where to find the firefox driver, which is the "glue"
 	    // between Selenium and the firefox installation on your machine
 		
-	    System.setProperty("webdriver.gecko.driver", "/home/ubuntu/testscripts/scripts/automation_testscripts/MavenUITest/geckodriver"); 	
+	    System.setProperty("webdriver.gecko.driver", GECKO_CONFIG_FILE); 	
 		// Start a new firefox browser instance and maximize the browser window
 		driver=new FirefoxDriver();
 	    driver.manage().window().maximize();
 	    driver.get(prop.getProperty("url"));
 	    System.out.println("OpsMx Page Launched");
+	 } catch (Exception e) {
+			System.out.println("Exception: " + e);
+		} finally {
+			inputStream.close();
+		}
 		
 	}
 	
 	public void UILogin() throws IOException
 	{
-		Properties prop=new Properties();
-		FileInputStream file=new FileInputStream("/home/ubuntu/testscripts/scripts/automation_testscripts/MavenUITest/src/test/java/com/opsmx/test/datadriven.properties");
 		
-		prop.load(file);
+	 try{
+		  prop=new Properties();
+		  inputStream=getClass().getClassLoader().getResourceAsStream(DATA_CONFIG_FILE);
+			if (inputStream != null) {
+				prop.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file '" + DATA_CONFIG_FILE + "' not found!");
+			}	
 		//login into OpsMx
 		driver.findElement(By.id("emailid")).sendKeys(prop.getProperty("Emailid"));
 		driver.findElement(By.id("pass")).sendKeys(prop.getProperty("Password"));
 		driver.findElement(By.xpath("//*[@id='login']/div[2]/div/form/button")).click();
 
 		System.out.println("Login Successfull");
+	 } catch (Exception e) {
+			System.out.println("Exception: " + e);
+		} finally {
+			inputStream.close();
+		}
 	}
 	
 
 	@DataProvider(name="newdata")
 	public static Object[] dp() throws IOException
 	{
-		//Providing list of Canary Id's from the "id.txt" file to run the test cases for
-		FileReader file = new FileReader("/home/ubuntu/testscripts/scripts/automation_testscripts/MavenUITest/src/test/java/com/opsmx/test/id.txt");
-		BufferedReader reader = new BufferedReader(file);
-		
+		BufferedReader reader;
+		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+		InputStream is = classloader.getResourceAsStream(BID_CONFIG_FILE);
+		if (is != null) {
+			InputStreamReader streamReader = new InputStreamReader(is, StandardCharsets.UTF_8);
+			reader = new BufferedReader(streamReader);
+		} else {
+			throw new FileNotFoundException("property file '" + BID_CONFIG_FILE + "' not found!");
+		}	
 		List<String> ids = new ArrayList<String>();
 		String line = null;
 		while ((line = reader.readLine()) != null) 
 	        {
-	            ids.add(line);
+	           ids.add(line);
 	        }
 		 reader.close();
 	     //Converting list of id's into an array.

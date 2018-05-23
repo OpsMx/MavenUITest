@@ -17,7 +17,6 @@ public class UITest extends UITestBase{
 	String canaryid;
 	String id;
 	
-	
 	@BeforeClass     //annotation for test case
 	public void UIConn() throws IOException
 	{
@@ -26,6 +25,7 @@ public class UITest extends UITestBase{
 		//Verifying Accessing OpsMx web page
 	    try {
 	    	UIUrl();
+	    	
 		} catch (AssertionError e){
 			System.out.println(" for Object id: "+ id + " i.e. Canary id: " +canaryid);
 		}
@@ -143,7 +143,7 @@ public class UITest extends UITestBase{
 		boolean result = true;	
 	    //Finding number of the links in the header 
 	    WebElement links=driver.findElement(By.xpath("/html/body/div/header/div"));
-	    //System.out.println(links.findElements(By.tagName("a")).size());
+	    System.out.println(links.findElements(By.tagName("a")).size());
 	
 	    //Selecting RISK ASSESSMENT from all link names in header block
 	    //Iterating through all the links that are present in the header block and select the header with "RISK ASSESSMENT"
