@@ -17,15 +17,13 @@ public class UITest extends UITestBase{
 	String canaryid;
 	String id;
 	
-	@BeforeClass     //annotation for test case
+	@BeforeClass     
 	public void UIConn() throws IOException
 	{
-		
 		//Opening OpsMX WebPage
 		//Verifying Accessing OpsMx web page
 	    try {
 	    	UIUrl();
-	    	
 		} catch (AssertionError e){
 			System.out.println(" for Object id: "+ id + " i.e. Canary id: " +canaryid);
 		}
@@ -37,8 +35,9 @@ public class UITest extends UITestBase{
 		//login to the OpsMX
 		//Verifying Login
 	    try {
+	    	
 	    	UILogin();
-	    	Thread.sleep(1000);
+	    	Thread.sleep(500);
 		} catch (AssertionError e){
 			System.out.println(" for Object id: "+ id + " i.e. Canary id: " +canaryid);
 		}
@@ -143,8 +142,7 @@ public class UITest extends UITestBase{
 		boolean result = true;	
 	    //Finding number of the links in the header 
 	    WebElement links=driver.findElement(By.xpath("/html/body/div/header/div"));
-	    System.out.println(links.findElements(By.tagName("a")).size());
-	
+	    //System.out.println(links.findElements(By.tagName("a")).size());
 	    //Selecting RISK ASSESSMENT from all link names in header block
 	    //Iterating through all the links that are present in the header block and select the header with "RISK ASSESSMENT"
 	     for (int i=0; i<links.findElements(By.tagName("a")).size(); i++ )
@@ -157,9 +155,8 @@ public class UITest extends UITestBase{
 	         }
 	        
 	     }
-     
 	    // Waiting for the page to load and verifying the title of the page
-	    WebDriverWait d=new WebDriverWait(driver, 25);
+	    WebDriverWait d=new WebDriverWait(driver, 20);
         d.until(ExpectedConditions.titleContains("Canary"));
 	    System.out.println("Verifying whether we are in the correct web page i.e Canary analysis | OpsMx");
     	if(driver.getTitle().contains("analysis"))
@@ -172,7 +169,6 @@ public class UITest extends UITestBase{
  	 		System.out.print("ERROR: Correct web page was not opened");
  	 		result = false;
         }
-    	    
         return result;
 	}
 	
@@ -182,19 +178,20 @@ public class UITest extends UITestBase{
 
 	    //Using "Select" class for drop downs to select "Multi-Source Dock" and "Canary ID 824"
 	    //Selecting Multi-Source Dock
-	    System.out.println("Selecting Multi-Source Dock");
+	    //System.out.println("Selecting Multi-Source Dock");
 	    Select s1=new Select(driver.findElement(By.cssSelector("select.col-md-2:nth-child(1)")));
 	    s1.selectByValue("5");
 	    System.out.println("Selected Multi-Source Dock");
 	    Select s2=new Select(driver.findElement(By.cssSelector("select.rep-select:nth-child(2)")));
+	   // System.out.println("testing id is "+id);
+	    Thread.sleep(600);
 	    s2.selectByValue(id);
 	    System.out.println("Canary ID selected from list");
-	    Thread.sleep(1000);
-	    
+	   
 	    //System.out.println("Hitting GO button");
 	    driver.findElement(By.cssSelector("button.btn.btn-sm.rep-button")).click();
 	    System.out.println("Hit GO button"); 
-	    Thread.sleep(1000);
+	    Thread.sleep(2000);
 
 	}
 	
@@ -203,7 +200,6 @@ public class UITest extends UITestBase{
 	{
 		boolean result = true;
       	 //Thread.sleep(1000);
-         System.out.println("*****");
          System.out.println("Validating Metric Score information");
          if(driver.findElement(By.cssSelector("#home > div > div:nth-child(5) > div:nth-child(1) > div > div > div > div > div:nth-child(7) > table > tbody:nth-child(5) > tr")).getText().contains("Network Group"))
          {
@@ -238,7 +234,7 @@ public class UITest extends UITestBase{
   	 	else
   	 	{
   	 		System.out.println(" Selecting Network Group from the list whose score is less or equal to 100 ");
-  	 		Thread.sleep(2000);
+  	 		Thread.sleep(500);
   	 		driver.findElement(By.xpath("//*[@id='home']/div/div[5]/div[1]/div/div/div/div/div[3]/table/tbody[4]/tr[1]/td[1]/button")).click();
   	 		driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[5]/div[1]/div/div/div/div/div[3]/table/tbody[4]/tr[5]/td[5]/button")).click();
   	 		System.out.println(" Selected Network Group Container from the list. ");
@@ -274,7 +270,6 @@ public class UITest extends UITestBase{
          return result;
 	}
 	
-
 	public boolean UIVerifyMetricScoreAnalysis()
 	{
 		boolean result = true;
@@ -297,7 +292,6 @@ public class UITest extends UITestBase{
          else
          {
         	 System.out.print("ERROR: Correct Analysis graph was not displayed");
-        	 result = false;
          }
          return result;
 	}
